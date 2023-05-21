@@ -1,6 +1,7 @@
 package com.habib.hr.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class RegionService {
 
 	public Set<Region> getRegions() {
 		return new HashSet<>(repository.findAll());
+	}
+
+	public List<Region> getRegionList() {
+		return repository.findAll();
 	}
 
 }

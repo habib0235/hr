@@ -1,5 +1,7 @@
 package com.habib.hr.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,5 +26,11 @@ public class RegionController {
 		return ResponseEntity.ok(region);
 	}
 
+	@RequestMapping(path= "/list")
+	@ResponseBody
+	public ResponseEntity<List<Region>> getRegionList() {
+		List<Region> regions = service.getRegionList();
+		return ResponseEntity.ok(regions);
+	}
 	
 }
