@@ -16,10 +16,14 @@ export class RegionListComponent implements OnInit {
   }
 
   regionList: Region[] = [];
+  selectedRegion = {};
 
   getRegionList(): void {
-    console.log('hello my love');
-    this.regionService.getRegionList().subscribe(regionList => { this.regionList = regionList; console.log(regionList)});
+    this.regionService.getRegionList()
+      .subscribe(regionList => {
+        this.regionList = regionList; console.log(regionList);
+        this.selectedRegion = this.regionList[0];
+      });
   }
 
 }
