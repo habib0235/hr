@@ -17,7 +17,7 @@ public class RegionService {
 	private RegionRepository repository;
 
 	public Region getRegion(Long id) {
-		return repository.getReferenceById(id);
+		return repository.findById(id).orElse(null);
 	}
 
 	public Set<Region> getRegions() {
