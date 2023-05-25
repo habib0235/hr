@@ -28,4 +28,11 @@ public class RegionService {
 		return repository.findAll();
 	}
 
+	public Region createRegion(Region region) {
+		return repository.save(region);
+	}
+
+	public Region updateRegion(Region region) {
+		return repository.save(region);
+	}
 }

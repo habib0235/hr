@@ -14,4 +14,12 @@ export class RegionService {
     getRegionList(): Observable<Region[]> {
         return this.http.get<Region[]>('http://localhost:8080/regions/list');
     }
+
+    saveRegion(region: Region) : Observable<Region>{
+        if(region) {
+            console.log('region being saved');
+            return this.http.post('http://localhost:8080/regions/save', region);
+        }
+        return new Observable();
+    }
 }

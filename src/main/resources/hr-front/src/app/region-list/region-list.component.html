@@ -7,11 +7,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let region of regionList">
+        <tr *ngFor="let region of regionList" (click)="onRegionSelected(region)">
             <td>{{region.id}}</td>
             <td>{{region.name}}</td>
         </tr>
     </tbody>
 </table>
-
-<app-region-details [region]="selectedRegion"></app-region-details>
+<button type="button" id="btn-new" (click)="newRegion()">New</button>
+<app-region-details *ngIf="displayRegionDetails" [region]="editRegion" (saveRegionEvent)="saveRegion($event)" (cancelOperationEvent)="cancelRegionEdit()"></app-region-details>

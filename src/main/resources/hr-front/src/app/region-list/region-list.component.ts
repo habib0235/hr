@@ -16,14 +16,46 @@ export class RegionListComponent implements OnInit {
   }
 
   regionList: Region[] = [];
-  selectedRegion = {};
+  editRegion: Region = {};
+
+  displayRegionDetails = false;
 
   getRegionList(): void {
     this.regionService.getRegionList()
       .subscribe(regionList => {
-        this.regionList = regionList; console.log(regionList);
-        this.selectedRegion = this.regionList[0];
+        this.regionList = regionList;
+        this.editRegion = {};
       });
+  }
+
+  onRegionSelected(selectedRegion: Region): void {
+    if (this.editRegion === selectedRegion) {
+      this.editRegion = {};
+      this.displayRegionDetails = false;
+    } else {
+      this.editRegion = selectedRegion;
+      this.displayRegionDetails = true;
+    }
+  }
+
+  newRegion() {
+    this.editRegion = { id: -1};
+    this.displayRegionDetails = true;
+  }
+
+  saveRegion(region: Region) {
+    this.regionService.saveRegion(region)
+    .subscribe(region => 
+      {
+        let indexToUpdate = this.regionList.findIndex(item => item.id === region.id);
+        this.regionList[indexToUpdate] = region;
+      });
+    this.displayRegionDetails = false;
+    this.getRegionList();
+  }
+
+  cancelRegionEdit() {
+    this.displayRegionDetails = false;
   }
 
 }

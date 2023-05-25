@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Region } from '../model/region';
 
 @Component({
@@ -14,5 +14,17 @@ export class RegionDetailsComponent implements OnInit {
   }
 
   @Input() region: Region = {};
+
+  @Output() saveRegionEvent = new EventEmitter<Region>();
+  @Output() cancelOperationEvent = new EventEmitter();
+
+
+  cancelOperation(): void {
+    this.cancelOperationEvent.emit();
+  }
+
+  saveRegion(region: Region) {
+    this.saveRegionEvent.emit(region);
+  }
 
 }

@@ -2,11 +2,13 @@ package com.habib.hr.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "regions")
+@Table(name = "regions", schema= "main_schema")
 public class Region {
 
 	private Long id;
@@ -21,6 +23,7 @@ public class Region {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "region_id")
 	public Long getId() {
 		return id;
