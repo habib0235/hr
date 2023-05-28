@@ -1,0 +1,19 @@
+<h2>Country list</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Region</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let country of countryList" (click)="onCountrySelected(country)">
+            <td>{{country.id}}</td>
+            <td>{{country.name}}</td>
+            <td>{{country.region?.name}}</td>
+        </tr>
+    </tbody>
+</table>
+<button type="button" id="btn-new" (click)="newCountry()">New</button>
+<app-country-details *ngIf="displayCountryDetails" [country]="editCountry" [addFlag]="addFlag" (saveCountryEvent)="saveCountry($event)" (cancelOperationEvent)="cancelCountryEdit()"></app-country-details>

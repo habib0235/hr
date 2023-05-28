@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 import { RegionListComponent } from './region-list/region-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegionDetailsComponent } from './region-details/region-details.component';
+import { CountryListComponent } from './country-list/country-list.component';
+import { CountryDetailsComponent } from './country-details/country-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegionListComponent,
-    RegionDetailsComponent
+    RegionDetailsComponent,
+    CountryListComponent,
+    CountryDetailsComponent
   ],
   imports: [
     BrowserModule,
