@@ -3,6 +3,7 @@ import { Country } from '../model/country';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Region } from '../model/region';
+import { Config } from '../shared/config';
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +12,32 @@ export class CountryService {
 
   constructor(private http: HttpClient) { }
 
+  private baseCountriesUrl = 'http://localhost:8080/countries';
+
+  private options = Config.httpOptions;
+
   getCountryListAll(): Observable<Country[]> {
-    return this.http.get<Country[]>('http://localhost:8080/countries/list');
+    const url = this.baseCountriesUrl + '/list';
+    return this.http.get<Country[]>(url, this.options);
   }
 
   getCountryListByRegion(region: Region): Observable<Country[]> {
-    return this.http.get<Country[]>(`http://localhost:8080/countries/${region.id}/list`);
+    const url = `${this.baseCountriesUrl}/${region.id}/list`;
+    return this.http.get<Country[]>(url, this.options);
   }
 
   createCountry(country: Country): Observable<Country> {
     if (country) {
-      return this.http.post('http://localhost:8080/countries/create', country);
+      const url = this.baseCountriesUrl + '/create';
+      return this.http.post(url, country, this.options);
     }
     return new Observable();
   }
 
   updateCountry(countryId?: string, country?: Country): Observable<Country> {
     if (country) {
-      return this.http.put(`http://localhost:8080/countries/update/${countryId}`, country);
+      const url = `${this.baseCountriesUrl}/update/${countryId}`;
+      return this.http.put(url, country, this.options);
     }
     return new Observable();
   }
