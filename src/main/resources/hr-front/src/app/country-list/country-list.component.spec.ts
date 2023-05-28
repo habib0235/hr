@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { CountryListComponent } from './country-list.component';
+import { FormsModule } from '@angular/forms';
 
 describe('CountryListComponent', () => {
   let component: CountryListComponent;
@@ -8,7 +10,8 @@ describe('CountryListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CountryListComponent ]
+      imports: [FormsModule, HttpClientTestingModule],
+      declarations: [ CountryListComponent]
     })
     .compileComponents();
 
