@@ -1,12 +1,11 @@
 package com.habib.hr.services;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.habib.hr.dto.RegionDTO;
 import com.habib.hr.entities.Region;
 import com.habib.hr.repositories.RegionRepository;
 
@@ -14,25 +13,34 @@ import com.habib.hr.repositories.RegionRepository;
 public class RegionService {
 
 	@Autowired
-	private RegionRepository repository;
+	private RegionRepository regionRepository;
 
-	public Region getRegion(Long id) {
-		return repository.findById(id).orElse(null);
+	@Autowired
+	private SharedService sharedService;
+
+	public RegionDTO getRegion(Long id) {
+		Region entity = regionRepository.findById(id).orElse(null);
+		return sharedService.MapSingleObject(entity, RegionDTO.class);
 	}
 
-	public Set<Region> getRegions() {
-		return new HashSet<>(repository.findAll());
+	public List<RegionDTO> getRegions() {
+		List<Region> list = regionRepository.findAll();
+		return sharedService.MapListOfObject(list, RegionDTO.class);
 	}
 
-	public List<Region> getRegionList() {
-		return repository.findAll();
+	public List<RegionDTO> getRegionList() {
+		return sharedService.MapListOfObject(regionRepository.findAll(), RegionDTO.class);
 	}
 
-	public Region createRegion(Region region) {
-		return repository.save(region);
+	public RegionDTO createRegion(RegionDTO regionDto) {
+		Region region = sharedService.MapSingleObject(regionDto, Region.class);
+		Region retRegion = regionRepository.save(region);
+		return sharedService.MapSingleObject(retRegion, RegionDTO.class);
 	}
 
-	public Region updateRegion(Region region) {
-		return repository.save(region);
+	public RegionDTO updateRegion(RegionDTO regionDto) {
+		Region region = sharedService.MapSingleObject(regionDto, Region.class);
+		Region retRegion = regionRepository.save(region);
+		return sharedService.MapSingleObject(retRegion, RegionDTO.class);
 	}
 }
