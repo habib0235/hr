@@ -24,6 +24,13 @@ public class CountryController {
 	@Autowired
 	private CountryService service;
 
+	@GetMapping(path = "/{countryId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<CountryDTO> getCountriesListById(@PathVariable String countryId) {
+		CountryDTO country = service.getCountryById(countryId);
+		return ResponseEntity.ok(country);
+	}
+
 	@GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<CountryDTO>> getCountriesListAll() {
@@ -31,7 +38,7 @@ public class CountryController {
 		return ResponseEntity.ok(list);
 	}
 
-	@GetMapping(path = "{regionId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/region/{regionId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<CountryDTO>> getCountriesListByRegion(@PathVariable Long regionId) {
 		List<CountryDTO> list = service.getCountriesListByRegion(regionId);

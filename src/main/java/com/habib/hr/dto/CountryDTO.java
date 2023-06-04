@@ -1,5 +1,7 @@
 package com.habib.hr.dto;
 
+import java.util.Objects;
+
 public class CountryDTO {
 
 	private String id;
@@ -37,6 +39,23 @@ public class CountryDTO {
 
 	public void setRegion(RegionDTO region) {
 		this.region = region;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, region);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CountryDTO other = (CountryDTO) obj;
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name) && Objects.equals(region, other.region);
 	}
 
 }

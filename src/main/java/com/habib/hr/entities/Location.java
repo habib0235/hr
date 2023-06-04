@@ -72,7 +72,7 @@ public class Location {
 	}
 
 	@ManyToOne
-    @JoinColumn(name="country_id")
+	@JoinColumn(name = "country_id")
 	public Country getCountry() {
 		return country;
 	}

@@ -44,7 +44,7 @@ public class Department {
 	}
 
 	@ManyToOne
-    @JoinColumn(name="manager_id")
+	@JoinColumn(name = "manager_id")
 	public Employee getManager() {
 		return manager;
 	}
@@ -54,7 +54,7 @@ public class Department {
 	}
 
 	@ManyToOne
-    @JoinColumn(name="location_id")
+	@JoinColumn(name = "location_id")
 	public Location getLocation() {
 		return location;
 	}

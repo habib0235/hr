@@ -1,5 +1,7 @@
 package com.habib.hr.dto;
 
+import java.util.Objects;
+
 public class LocationDTO {
 
 	private Long id;
@@ -68,6 +70,26 @@ public class LocationDTO {
 
 	public void setCountry(CountryDTO country) {
 		this.country = country;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(city, country, id, postalCode, stateProvince, streetAddress);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LocationDTO other = (LocationDTO) obj;
+		return Objects.equals(city, other.city) && Objects.equals(country, other.country)
+				&& Objects.equals(id, other.id) && Objects.equals(postalCode, other.postalCode)
+				&& Objects.equals(stateProvince, other.stateProvince)
+				&& Objects.equals(streetAddress, other.streetAddress);
 	}
 
 }

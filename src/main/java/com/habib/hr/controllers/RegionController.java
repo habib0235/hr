@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.habib.hr.dto.RegionDTO;
-import com.habib.hr.entities.Region;
 import com.habib.hr.services.RegionService;
 
 @RestController
@@ -43,7 +42,7 @@ public class RegionController {
 	public ResponseEntity<RegionDTO> saveRegion(@RequestBody RegionDTO region) {
 		RegionDTO retRegion = null;
 		if (region != null) {
-			if (region.getId() < 1) {
+			if (region.getId() == null || region.getId() < 1) {
 				retRegion = service.createRegion(region);
 			} else {
 				retRegion = service.updateRegion(region);

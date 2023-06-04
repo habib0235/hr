@@ -34,6 +34,7 @@ public class RegionService {
 
 	public RegionDTO createRegion(RegionDTO regionDto) {
 		Region region = sharedService.MapSingleObject(regionDto, Region.class);
+		region.setId(null);
 		Region retRegion = regionRepository.save(region);
 		return sharedService.MapSingleObject(retRegion, RegionDTO.class);
 	}

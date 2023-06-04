@@ -1,5 +1,7 @@
 package com.habib.hr.dto;
 
+import java.util.Objects;
+
 public class DepartmentDTO {
 
 	private Long id;
@@ -48,6 +50,24 @@ public class DepartmentDTO {
 
 	public void setLocation(LocationDTO location) {
 		this.location = location;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, location, manager, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DepartmentDTO other = (DepartmentDTO) obj;
+		return Objects.equals(id, other.id) && Objects.equals(location, other.location)
+				&& Objects.equals(manager, other.manager) && Objects.equals(name, other.name);
 	}
 
 }

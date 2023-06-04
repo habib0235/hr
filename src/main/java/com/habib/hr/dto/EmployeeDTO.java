@@ -1,6 +1,7 @@
 package com.habib.hr.dto;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class EmployeeDTO {
 
@@ -120,6 +121,29 @@ public class EmployeeDTO {
 
 	public void setDepartment(DepartmentDTO department) {
 		this.department = department;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(commissionPct, department, email, firstName, hireDate, id, job, lastName, manager,
+				phoneNumber, salary);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EmployeeDTO other = (EmployeeDTO) obj;
+		return Objects.equals(commissionPct, other.commissionPct) && Objects.equals(department, other.department)
+				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(hireDate, other.hireDate) && Objects.equals(id, other.id)
+				&& Objects.equals(job, other.job) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(manager, other.manager) && Objects.equals(phoneNumber, other.phoneNumber)
+				&& Objects.equals(salary, other.salary);
 	}
 
 }
