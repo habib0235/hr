@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { CountryService } from '../services/country.service';
 import { Country } from '../model/country';
+import { Region } from '../model/region';
 
 @Component({
   selector: 'app-country-list',
   templateUrl: './country-list.component.html',
-  styleUrls: ['./country-list.component.css']
+  styleUrls: ['./country-list.component.css'],
 })
-export class CountryListComponent implements OnInit {
-
+export class CountryListComponent {
 
   constructor(private countryService: CountryService) { }
 
@@ -16,18 +18,36 @@ export class CountryListComponent implements OnInit {
     this.getCountryList();
   }
 
-  countryList: Country[] = [];
+  dataSource = new MatTableDataSource<Country>();
+  displayedColumns: string[] = ['id', 'name', 'region'];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   editCountry: Country = {};
 
   displayCountryDetails = false;
   addFlag: boolean = true;
 
+  @Input() region?: Region;
+
+  ngOnChanges() {
+    this.getCountryList();
+  }
+
   getCountryList(): void {
-    this.countryService.getCountryListAll()
-      .subscribe(countryList => {
-        this.countryList = countryList;
-        this.editCountry = {};
-      });
+    if (this.region) {
+      this.countryService.getCountryListByRegion(this.region)
+        .subscribe(countryList => {
+          this.dataSource = new MatTableDataSource<Country>(countryList);
+          this.dataSource.paginator = this.paginator;
+          this.editCountry = {};
+        });
+    } else {
+      this.countryService.getCountryListAll()
+        .subscribe(countryList => {
+          this.dataSource = new MatTableDataSource<Country>(countryList);
+          this.dataSource.paginator = this.paginator;
+          this.editCountry = {};
+        });
+    }
   }
 
   onCountrySelected(selectedCountry: Country): void {
@@ -58,7 +78,7 @@ export class CountryListComponent implements OnInit {
   createCountry(country: Country) {
     this.countryService.createCountry(country)
       .subscribe(country => {
-        this.countryList.push(country);
+        this.dataSource.data.push(country);
         this.displayCountryDetails = false;
       });
 
@@ -67,8 +87,8 @@ export class CountryListComponent implements OnInit {
   updateCountry(countryId?: string, country?: Country) {
     this.countryService.updateCountry(countryId, country).subscribe(
       country => {
-        let indexToUpdate = this.countryList.findIndex(item => item.id === country.id);
-        this.countryList[indexToUpdate] = country;
+        let indexToUpdate = this.dataSource.data.findIndex(item => item.id === country.id);
+        this.dataSource.data[indexToUpdate] = country;
         this.displayCountryDetails = false;
       });
   }

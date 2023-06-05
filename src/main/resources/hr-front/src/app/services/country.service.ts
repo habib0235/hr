@@ -22,7 +22,7 @@ export class CountryService {
   }
 
   getCountryListByRegion(region: Region): Observable<Country[]> {
-    const url = `${this.baseCountriesUrl}/${region.id}/list`;
+    const url = `${this.baseCountriesUrl}/region/${region.id}`;
     return this.http.get<Country[]>(url, this.options);
   }
 
